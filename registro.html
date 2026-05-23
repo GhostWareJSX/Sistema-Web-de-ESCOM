@@ -51,9 +51,85 @@
         <h2><i class="bi bi-person-plus-fill"></i> Registro de datos generales</h2>
         <p>Página preparada con el navbar, footer y estilo.</p>
 
-        <!--
-          Aquí va el formulario de registro: datos personales, datos de procedencia y datos de cuenta.
-        -->
+      <form id="formRegistro" novalidate>
+
+        <!-- ─── SECCIÓN 1: DATOS PERSONALES ─── -->
+        <div class="seccion-form">
+          <h4 class="titulo-seccion"><i class="bi bi-person-vcard-fill"></i> Datos Personales</h4>
+
+          <div class="row g-3">
+
+            <!-- Número de boleta -->
+            <div class="col-12 col-md-6">
+              <label for="boleta" class="form-label">Número de boleta <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="boleta" name="boleta"
+                    placeholder="Ej. 2023630001 o PE12345678"
+                    maxlength="10" required>
+              <div class="invalid-feedback">Ingresa 10 dígitos o el formato PE/PP seguido de 8 dígitos.</div>
+            </div>
+
+            <!-- Nombre completo -->
+            <div class="col-12 col-md-6">
+              <label for="nombre" class="form-label">Nombre completo <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="nombre" name="nombre"
+                    placeholder="Ej. Juan Pérez López" required>
+              <div class="invalid-feedback">Solo se permiten letras y espacios.</div>
+            </div>
+
+            <!-- Fecha de nacimiento -->
+            <div class="col-12 col-md-4">
+              <label for="fechaNac" class="form-label">Fecha de nacimiento <span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="fechaNac" name="fechaNac" required>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+
+            <!-- Género -->
+            <div class="col-12 col-md-4">
+              <label for="genero" class="form-label">Género <span class="text-danger">*</span></label>
+              <select class="form-select" id="genero" name="genero" required>
+                <option value="" disabled selected>Selecciona...</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+                <option value="prefiero_no_decir">Prefiero no decirlo</option>
+              </select>
+              <div class="invalid-feedback">Selecciona una opción.</div>
+            </div>
+
+            <!-- CURP -->
+            <div class="col-12 col-md-4">
+              <label for="curp" class="form-label">CURP <span class="text-danger">*</span></label>
+              <input type="text" class="form-control text-uppercase" id="curp" name="curp"
+                    placeholder="Ej. PELJ010214HDFRZNA1"
+                    maxlength="18" required>
+              <div class="invalid-feedback">Formato inválido. Revisa los 18 caracteres requeridos.</div>
+            </div>
+
+            <!-- Estados -->
+            <div class="col-12 col-md-6">
+              <label for="entidad" class="form-label">Entidad federativa de procedencia <span class="text-danger">*</span></label>
+              <select class="form-select" id="entidad" name="entidad" required>
+                <option value="" disabled selected>Selecciona un estado...</option>
+              </select>
+              <div class="invalid-feedback">Selecciona tu entidad de procedencia.</div>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="col-12 col-md-6">
+              <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                <input type="tel" class="form-control" id="telefono" name="telefono"
+                      placeholder="10 dígitos" maxlength="10" required>
+              </div>
+              <div class="invalid-feedback d-block" id="err-telefono" style="display:none!important"></div>
+            </div>
+
+          </div>
+        </div>
+        <!-- ─── FIN SECCIÓN 1 ─── -->
+
+      </form>
 
       </div>
     </section>
@@ -67,5 +143,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
 </body>
 </html>
