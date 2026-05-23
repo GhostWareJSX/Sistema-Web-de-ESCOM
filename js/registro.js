@@ -126,3 +126,82 @@ document.getElementById("formRegistro").addEventListener("submit", function(e) {
     console.log("Sección 1 válida ✓");
   }
 });
+
+// ── Escuelas (CECyTs + CET 1 + Otro) ───────────────────────
+const escuelas = [
+  "CECyT 1 - Gonzalo Vázquez Vela",
+  "CECyT 2 - Miguel Bernard",
+  "CECyT 3 - Estanislao Ramírez Ruiz",
+  "CECyT 4 - Lázaro Cárdenas",
+  "CECyT 5 - Benjamín Franklin",
+  "CECyT 6 - Miguel Othón de Mendizábal",
+  "CECyT 7 - Cuauhtémoc",
+  "CECyT 8 - Narciso Bassols",
+  "CECyT 9 - Juan de Dios Bátiz",
+  "CECyT 10 - Carlos Vallejo Márquez",
+  "CECyT 11 - Wilfrido Massieu",
+  "CECyT 12 - José María Morelos y Pavón",
+  "CECyT 13 - Ricardo Flores Magón",
+  "CECyT 14 - Luis Enrique Erro",
+  "CECyT 15 - Diódoro Antúnez Echegaray",
+  "CECyT 16 - Hidalgo",
+  "CECyT 17 - León",
+  "CECyT 18 - Tlaxcala",
+  "CECyT 19 - Tamaulipas",
+  "CET 1 - Walter Cross Buchanan",
+  "Otro"
+];
+
+const selectEscuela = document.getElementById("escuela");
+
+escuelas.map(escuela => {
+  const option = document.createElement("option");
+  option.value = escuela;
+  option.textContent = escuela;
+  return option;
+}).forEach(option => selectEscuela.appendChild(option));
+
+
+// ── Activar/desactivar campo nombre de escuela ──────────────
+const campoEscuela      = document.getElementById("escuela");
+const campoNombreEscuela = document.getElementById("nombreEscuela");
+
+campoEscuela.addEventListener("change", () => {
+  const esOtro = campoEscuela.value === "Otro";
+
+  campoNombreEscuela.disabled = !esOtro;
+  campoNombreEscuela.required = esOtro;
+
+  if (!esOtro) {
+    campoNombreEscuela.value = "";
+    campoNombreEscuela.classList.remove("is-valid", "is-invalid");
+  }
+
+  validarSelect(campoEscuela);
+});
+
+
+// ── Referencias nuevos campos ───────────────────────────────
+const campoEscuelaSelect  = document.getElementById("escuela");
+const campoNombreEsc      = document.getElementById("nombreEscuela");
+const campoPromedio       = document.getElementById("promedio");
+
+
+// ── Validación en tiempo real ───────────────────────────────
+campoEscuelaSelect.addEventListener("change", () =>
+  validarSelect(campoEscuelaSelect));
+
+campoNombreEsc.addEventListener("blur", () => {
+  if (!campoNombreEsc.disabled) {
+    const esValido = campoNombreEsc.value.trim() !== "";
+    campoNombreEsc.classList.toggle("is-valid",   esValido);
+    campoNombreEsc.classList.toggle("is-invalid", !esValido);
+  }
+});
+
+campoPromedio.addEventListener("blur", () => {
+  const valor = parseFloat(campoPromedio.value);
+  const esValido = !isNaN(valor) && valor >= 6.0 && valor <= 10.0;
+  campoPromedio.classList.toggle("is-valid",   esValido);
+  campoPromedio.classList.toggle("is-invalid", !esValido);
+});
