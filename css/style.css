@@ -326,3 +326,24 @@ footer {
     text-align: center;
   }
 }
+
+/* Secciones del formulario */
+.seccion-form {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.titulo-seccion {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6f1d2b; /* guinda IPN */
+  border-bottom: 2px solid #6f1d2b;
+  padding-bottom: .5rem;
+  margin-bottom: 1.25rem;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
