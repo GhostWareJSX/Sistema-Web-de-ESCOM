@@ -51,11 +51,28 @@
         <h2><i class="bi bi-person-circle"></i> Cuenta del alumno</h2>
         <p>Página preparada con la estructura común del sitio.</p>
 
-        <!--
-          Aquí va el formulario de inicio de sesión para Cuenta. Requisito posterior: validar que el usuario ingrese algo.
-        -->
+        <form id="formCuenta" class="login-form" novalidate>
+          <div class="mb-3">
+            <label for="correoCuenta" class="form-label">Correo institucional</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+              <input type="email" class="form-control" id="correoCuenta" placeholder="usuario@alumno.ipn.mx" required>
+              <div class="invalid-feedback">Este campo no puede quedar vacío.</div>
+            </div>
+          </div>
 
+          <div class="mb-3">
+            <label for="passwordCuenta" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+              <input type="password" class="form-control" id="passwordCuenta" placeholder="Ingresa tu contraseña" required>
+              <div class="invalid-feedback">Este campo no puede quedar vacío.</div>
+            </div>
+          </div>
 
+          <button type="submit" class="btn btn-guinda"><i class="bi bi-box-arrow-in-right"></i> Iniciar sesión</button>
+        </form>
+        <div id="alertaCuenta" class="d-none" role="alert"></div>
       </div>
     </section>
   </main>

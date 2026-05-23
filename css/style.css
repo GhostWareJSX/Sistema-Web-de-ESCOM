@@ -340,16 +340,16 @@ body {
 /* Botones del formulario */
 .btn-guinda {
   background-color: var(--color-ESCOM);
+  border-color: var(--color-ESCOM);
   color: var(--blanco);
-  border: none;
   border-radius: 30px;
   padding: 10px 24px;
   font-weight: bold;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .btn-guinda:hover {
   background-color: var(--color-digital);
+  border-color: var(--color-digital);
   color: var(--color-ESCOM);
 }
 

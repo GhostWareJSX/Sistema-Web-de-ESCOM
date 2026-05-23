@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,16 +22,20 @@
         </div>
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu"
+        aria-expanded="false" aria-label="Abrir menú">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-fill"></i> Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="registro.html"><i class="bi bi-person-plus-fill"></i> Registro</a></li>
-          <li class="nav-item"><a class="nav-link active" href="admin.html" aria-current="pagina"><i class="bi bi-shield-lock-fill"></i> Admin</a></li>
-          <li class="nav-item"><a class="nav-link" href="cuenta.html"><i class="bi bi-person-circle"></i> Cuenta</a></li>
+          <li class="nav-item"><a class="nav-link" href="registro.html"><i class="bi bi-person-plus-fill"></i>
+              Registro</a></li>
+          <li class="nav-item"><a class="nav-link active" href="admin.html" aria-current="pagina"><i
+                class="bi bi-shield-lock-fill"></i> Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="cuenta.html"><i class="bi bi-person-circle"></i> Cuenta</a>
+          </li>
           <li class="nav-item mt-3 mt-lg-0 ms-lg-2">
             <a class="equipo" href="#">
               <img src="img/logo-equipo.png" alt="Logo del equipo" class="logo-equipo">
@@ -49,11 +54,33 @@
     <section class="container">
       <div class="tarjeta-pagina">
         <h2><i class="bi bi-shield-lock-fill"></i> Acceso administrativo</h2>
-        <p>Página preparada con la estructura común del sitio.</p>
+        <p>Ingresa tus credenciales administrativas.</p>
 
-        <!--
-          Aquí va el formulario de inicio de sesión para Admin. Requisito posterior: validar que el usuario ingrese algo.
-        -->
+        <form id="formAdmin" class="login-form" novalidate>
+          <div class="mb-3">
+            <label for="usuarioAdmin" class="form-label">Usuario administrador</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person-badge-fill"></i></span>
+              <input type="text" class="form-control" id="usuarioAdmin" placeholder="admin.escom" required>
+              <div class="invalid-feedback">Este campo no puede quedar vacío.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="passwordAdmin" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+              <input type="password" class="form-control" id="passwordAdmin" placeholder="Ingresa tu contraseña"
+                required>
+              <div class="invalid-feedback">Este campo no puede quedar vacío.</div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-guinda"><i class="bi bi-box-arrow-in-right"></i> Iniciar
+            sesión</button>
+        </form>
+
+        <div id="alertaAdmin" class="d-none" role="alert"></div>
       </div>
     </section>
   </main>
@@ -67,4 +94,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
