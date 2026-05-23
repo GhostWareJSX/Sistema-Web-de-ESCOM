@@ -1,3 +1,12 @@
+// ═══════════════════════════════════════════════════════════
+//  REGISTRO.JS
+//  Orden: 1) Datos  2) Referencias DOM  3) Regex
+//         4) Funciones  5) Inicialización  6) Eventos
+// ═══════════════════════════════════════════════════════════
+
+
+// ── 1. DATOS ────────────────────────────────────────────────
+
 const estados = [
   "Aguascalientes", "Baja California", "Baja California Sur",
   "Campeche", "Chiapas", "Chihuahua", "Ciudad de México",
@@ -9,125 +18,6 @@ const estados = [
   "Yucatán", "Zacatecas"
 ];
 
-// ── Cargar estados ──────────────────────────────────────────
-const selectEstados = document.getElementById("entidad");
-
-estados.map(estado => {
-  const option = document.createElement("option");
-  option.value = estado;
-  option.textContent = estado;
-  return option;
-}).forEach(option => selectEstados.appendChild(option));
-
-
-// ── Expresiones regulares ───────────────────────────────────
-const reglas = {
-  boleta:   /^(\d{10}|P[EP]\d{8})$/,
-  nombre:   /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/,
-  curp:     /^[A-Z]{4}\d{6}[A-Z]{6}[A-Z0-9]{2}$/,
-  telefono: /^\d{10}$/,
-};
-
-
-// ── Función genérica de validación por campo ────────────────
-function validarCampo(campo, regex) {
-  const valor = campo.value.trim();
-  const esValido = regex.test(valor);
-
-  if (esValido) {
-    campo.classList.remove("is-invalid");
-    campo.classList.add("is-valid");
-  } else {
-    campo.classList.remove("is-valid");
-    campo.classList.add("is-invalid");
-  }
-
-  return esValido;
-}
-
-function validarSelect(select) {
-  const esValido = select.value !== "";
-
-  if (esValido) {
-    select.classList.remove("is-invalid");
-    select.classList.add("is-valid");
-  } else {
-    select.classList.remove("is-valid");
-    select.classList.add("is-invalid");
-  }
-
-  return esValido;
-}
-
-
-// ── Referencias a los campos ────────────────────────────────
-const campoBoleta   = document.getElementById("boleta");
-const campoNombre   = document.getElementById("nombre");
-const campoFecha    = document.getElementById("fechaNac");
-const campoGenero   = document.getElementById("genero");
-const campoCurp     = document.getElementById("curp");
-const campoEntidad  = document.getElementById("entidad");
-const campoTelefono = document.getElementById("telefono");
-
-
-// ── CURP siempre en mayúsculas mientras escribe ─────────────
-campoCurp.addEventListener("input", () => {
-  campoCurp.value = campoCurp.value.toUpperCase();
-});
-
-
-// ── Validación en tiempo real (al salir de cada campo) ──────
-campoBoleta.addEventListener("blur", () =>
-  validarCampo(campoBoleta, reglas.boleta));
-
-campoNombre.addEventListener("blur", () =>
-  validarCampo(campoNombre, reglas.nombre));
-
-campoFecha.addEventListener("blur", () => {
-  const esValido = campoFecha.value !== "";
-  campoFecha.classList.toggle("is-valid",   esValido);
-  campoFecha.classList.toggle("is-invalid", !esValido);
-});
-
-campoGenero.addEventListener("change", () =>
-  validarSelect(campoGenero));
-
-campoCurp.addEventListener("blur", () =>
-  validarCampo(campoCurp, reglas.curp));
-
-campoEntidad.addEventListener("change", () =>
-  validarSelect(campoEntidad));
-
-campoTelefono.addEventListener("blur", () =>
-  validarCampo(campoTelefono, reglas.telefono));
-
-
-// ── Validación completa al dar clic en Registrar ────────────
-document.getElementById("formRegistro").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const todo_valido = [
-    validarCampo(campoBoleta,   reglas.boleta),
-    validarCampo(campoNombre,   reglas.nombre),
-    (() => {
-      const v = campoFecha.value !== "";
-      campoFecha.classList.toggle("is-valid",   v);
-      campoFecha.classList.toggle("is-invalid", !v);
-      return v;
-    })(),
-    validarSelect(campoGenero),
-    validarCampo(campoCurp,     reglas.curp),
-    validarSelect(campoEntidad),
-    validarCampo(campoTelefono, reglas.telefono),
-  ].every(Boolean);
-
-  if (todo_valido) {
-    // aquí después tu compañero conecta con las secciones 2 y 3
-    console.log("Sección 1 válida ✓");
-  }
-});
-
-// ── Escuelas (CECyTs + CET 1 + Otro) ───────────────────────
 const escuelas = [
   "CECyT 1 - Gonzalo Vázquez Vela",
   "CECyT 2 - Miguel Bernard",
@@ -152,23 +42,184 @@ const escuelas = [
   "Otro"
 ];
 
-const selectEscuela = document.getElementById("escuela");
 
-escuelas.map(escuela => {
-  const option = document.createElement("option");
-  option.value = escuela;
-  option.textContent = escuela;
-  return option;
-}).forEach(option => selectEscuela.appendChild(option));
+// ── 2. REFERENCIAS DOM ──────────────────────────────────────
 
+// Sección 1 - Datos personales
+const campoBoleta    = document.getElementById("boleta");
+const campoNombre    = document.getElementById("nombre");
+const campoFecha     = document.getElementById("fechaNac");
+const campoGenero    = document.getElementById("genero");
+const campoCurp      = document.getElementById("curp");
+const campoEntidad   = document.getElementById("entidad");
+const campoTelefono  = document.getElementById("telefono");
 
-// ── Activar/desactivar campo nombre de escuela ──────────────
-const campoEscuela      = document.getElementById("escuela");
+// Sección 2 - Datos de procedencia
+const campoEscuela       = document.getElementById("escuela");
 const campoNombreEscuela = document.getElementById("nombreEscuela");
+const campoPromedio      = document.getElementById("promedio");
 
+// Sección 3 - Datos de cuenta
+const campoCorreo     = document.getElementById("correo");
+const campoContrasena = document.getElementById("contrasena");
+const errCorreo       = document.getElementById("err-correo");
+const errContrasena   = document.getElementById("err-contrasena");
+
+
+// ── 3. EXPRESIONES REGULARES ────────────────────────────────
+
+const reglas = {
+  boleta:     /^(\d{10}|P[EP]\d{8})$/,
+  nombre:     /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/,
+  curp:       /^[A-Z]{4}\d{6}[A-Z]{6}[A-Z0-9]{2}$/,
+  telefono:   /^\d{10}$/,
+  correo:     /^[a-zA-Z0-9._%+-]+@alumno\.ipn\.mx$/,
+  contrasena: /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{6,}$/,
+};
+
+
+// ── 4. FUNCIONES ────────────────────────────────────────────
+
+// Valida un input con regex, aplica clases Bootstrap
+function validarCampo(campo, regex) {
+  const esValido = regex.test(campo.value.trim());
+  campo.classList.toggle("is-valid",   esValido);
+  campo.classList.toggle("is-invalid", !esValido);
+  return esValido;
+}
+
+// Valida que un select tenga opción seleccionada
+function validarSelect(select) {
+  const esValido = select.value !== "";
+  select.classList.toggle("is-valid",   esValido);
+  select.classList.toggle("is-invalid", !esValido);
+  return esValido;
+}
+
+// Valida que un campo de texto no esté vacío
+function validarRequerido(campo) {
+  const esValido = campo.value.trim() !== "";
+  campo.classList.toggle("is-valid",   esValido);
+  campo.classList.toggle("is-invalid", !esValido);
+  return esValido;
+}
+
+// Genera las opciones de un select a partir de un arreglo
+function cargarOpciones(select, arreglo) {
+  arreglo.map(item => {
+    const option = document.createElement("option");
+    option.value = item;
+    option.textContent = item;
+    return option;
+  }).forEach(option => select.appendChild(option));
+}
+
+// Valida la contraseña y muestra mensajes específicos de lo que falta
+function validarContrasena() {
+  const valor    = campoContrasena.value;
+  const esValido = reglas.contrasena.test(valor);
+
+  campoContrasena.classList.toggle("is-valid",   esValido);
+  campoContrasena.classList.toggle("is-invalid", !esValido);
+
+  if (!esValido) {
+    const mensajes = [];
+    if (valor.length < 6)            mensajes.push("mínimo 6 caracteres");
+    if (!/[A-Z]/.test(valor))        mensajes.push("al menos una mayúscula");
+    if (!/\d/.test(valor))           mensajes.push("al menos un dígito");
+    if (!/[^a-zA-Z0-9]/.test(valor)) mensajes.push("al menos un carácter especial");
+    errContrasena.textContent = "Falta: " + mensajes.join(", ") + ".";
+  } else {
+    errContrasena.textContent = "";
+  }
+
+  return esValido;
+}
+
+// Valida todos los campos del formulario antes de enviar
+function validarFormulario() {
+  const fechaValida = campoFecha.value !== "";
+  campoFecha.classList.toggle("is-valid",   fechaValida);
+  campoFecha.classList.toggle("is-invalid", !fechaValida);
+
+  const correoValido = reglas.correo.test(campoCorreo.value.trim());
+  campoCorreo.classList.toggle("is-valid",   correoValido);
+  campoCorreo.classList.toggle("is-invalid", !correoValido);
+  errCorreo.textContent = correoValido ? "" : "El correo debe tener el formato usuario@alumno.ipn.mx";
+
+  const nombreEscuelaValido = campoNombreEscuela.disabled
+    ? true
+    : validarRequerido(campoNombreEscuela);
+
+  const promedioValido = (() => {
+    const v = parseFloat(campoPromedio.value);
+    const ok = !isNaN(v) && v >= 6.0 && v <= 10.0;
+    campoPromedio.classList.toggle("is-valid",   ok);
+    campoPromedio.classList.toggle("is-invalid", !ok);
+    return ok;
+  })();
+
+  return [
+    validarCampo(campoBoleta,   reglas.boleta),
+    validarCampo(campoNombre,   reglas.nombre),
+    fechaValida,
+    validarSelect(campoGenero),
+    validarCampo(campoCurp,     reglas.curp),
+    validarSelect(campoEntidad),
+    validarCampo(campoTelefono, reglas.telefono),
+    validarSelect(campoEscuela),
+    nombreEscuelaValido,
+    promedioValido,
+    correoValido,
+    validarContrasena(),
+  ].every(Boolean);
+}
+
+// Limpia el formulario completo
+function limpiarFormulario() {
+  document.getElementById("formRegistro").reset();
+
+  document.querySelectorAll(".is-valid, .is-invalid").forEach(campo => {
+    campo.classList.remove("is-valid", "is-invalid");
+  });
+
+  campoNombreEscuela.disabled = true;
+  campoNombreEscuela.required = false;
+  errCorreo.textContent       = "";
+  errContrasena.textContent   = "";
+}
+
+
+// ── 5. INICIALIZACIÓN ───────────────────────────────────────
+
+cargarOpciones(campoEntidad, estados);
+cargarOpciones(campoEscuela, escuelas);
+
+
+// ── 6. EVENTOS ──────────────────────────────────────────────
+
+// Sección 1
+campoBoleta.addEventListener("blur",   () => validarCampo(campoBoleta,   reglas.boleta));
+campoNombre.addEventListener("blur",   () => validarCampo(campoNombre,   reglas.nombre));
+campoCurp.addEventListener("blur",     () => validarCampo(campoCurp,     reglas.curp));
+campoTelefono.addEventListener("blur", () => validarCampo(campoTelefono, reglas.telefono));
+campoGenero.addEventListener("change", () => validarSelect(campoGenero));
+campoEntidad.addEventListener("change",() => validarSelect(campoEntidad));
+
+campoFecha.addEventListener("blur", () => {
+  const v = campoFecha.value !== "";
+  campoFecha.classList.toggle("is-valid",   v);
+  campoFecha.classList.toggle("is-invalid", !v);
+});
+
+// CURP siempre en mayúsculas
+campoCurp.addEventListener("input", () => {
+  campoCurp.value = campoCurp.value.toUpperCase();
+});
+
+// Sección 2
 campoEscuela.addEventListener("change", () => {
   const esOtro = campoEscuela.value === "Otro";
-
   campoNombreEscuela.disabled = !esOtro;
   campoNombreEscuela.required = esOtro;
 
@@ -180,28 +231,42 @@ campoEscuela.addEventListener("change", () => {
   validarSelect(campoEscuela);
 });
 
-
-// ── Referencias nuevos campos ───────────────────────────────
-const campoEscuelaSelect  = document.getElementById("escuela");
-const campoNombreEsc      = document.getElementById("nombreEscuela");
-const campoPromedio       = document.getElementById("promedio");
-
-
-// ── Validación en tiempo real ───────────────────────────────
-campoEscuelaSelect.addEventListener("change", () =>
-  validarSelect(campoEscuelaSelect));
-
-campoNombreEsc.addEventListener("blur", () => {
-  if (!campoNombreEsc.disabled) {
-    const esValido = campoNombreEsc.value.trim() !== "";
-    campoNombreEsc.classList.toggle("is-valid",   esValido);
-    campoNombreEsc.classList.toggle("is-invalid", !esValido);
-  }
+campoNombreEscuela.addEventListener("blur", () => {
+  if (!campoNombreEscuela.disabled) validarRequerido(campoNombreEscuela);
 });
 
 campoPromedio.addEventListener("blur", () => {
-  const valor = parseFloat(campoPromedio.value);
-  const esValido = !isNaN(valor) && valor >= 6.0 && valor <= 10.0;
-  campoPromedio.classList.toggle("is-valid",   esValido);
-  campoPromedio.classList.toggle("is-invalid", !esValido);
+  const v  = parseFloat(campoPromedio.value);
+  const ok = !isNaN(v) && v >= 6.0 && v <= 10.0;
+  campoPromedio.classList.toggle("is-valid",   ok);
+  campoPromedio.classList.toggle("is-invalid", !ok);
+});
+
+// Sección 3
+campoCorreo.addEventListener("blur", () => {
+  const ok = reglas.correo.test(campoCorreo.value.trim());
+  campoCorreo.classList.toggle("is-valid",   ok);
+  campoCorreo.classList.toggle("is-invalid", !ok);
+  errCorreo.textContent = ok ? "" : "El correo debe tener el formato usuario@alumno.ipn.mx";
+});
+
+campoContrasena.addEventListener("blur", validarContrasena);
+
+document.getElementById("btnVerPass").addEventListener("click", () => {
+  const tipo = campoContrasena.type === "password" ? "text" : "password";
+  campoContrasena.type = tipo;
+  const icono = document.querySelector("#btnVerPass i");
+  icono.classList.toggle("bi-eye-fill",       tipo === "password");
+  icono.classList.toggle("bi-eye-slash-fill", tipo === "text");
+});
+
+// Botones
+document.getElementById("btnLimpiar").addEventListener("click", limpiarFormulario);
+
+document.getElementById("formRegistro").addEventListener("submit", function(e) {
+  e.preventDefault();
+  if (validarFormulario()) {
+    console.log("Formulario válido ✓");
+    // aquí va la pantalla de confirmación
+  }
 });
