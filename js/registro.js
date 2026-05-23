@@ -260,7 +260,116 @@ document.getElementById("btnLimpiar").addEventListener("click", limpiarFormulari
 document.getElementById("formRegistro").addEventListener("submit", function(e) {
   e.preventDefault();
   if (validarFormulario()) {
-    console.log("Formulario válido ✓");
-    // aquí va la pantalla de confirmación
+    mostrarConfirmacion()
   }
 });
+
+// Confirmación 
+
+function mostrarConfirmacion() {
+  const confirmacion = document.getElementById("confirmacionRegistro");
+  const mensaje = document.getElementById("mensajeConfirmacion");
+  const datos = document.getElementById("datosConfirmacion");
+
+  mensaje.textContent = `Hola ${campoNombre.value}, verifica que los datos que ingresaste sean correctos:`;
+
+  const generoTexto = campoGenero.options[campoGenero.selectedIndex].text;
+  const entidadTexto = campoEntidad.options[campoEntidad.selectedIndex].text;
+  const escuelaTexto = campoEscuela.options[campoEscuela.selectedIndex].text;
+
+  datos.innerHTML = `
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>No. de boleta:</strong>
+        <p>${campoBoleta.value}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Nombre completo:</strong>
+        <p>${campoNombre.value}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Fecha de nacimiento:</strong>
+        <p>${formatearFecha(campoFecha.value)}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Género:</strong>
+        <p>${generoTexto}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>CURP:</strong>
+        <p>${campoCurp.value}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Entidad de procedencia:</strong>
+        <p>${entidadTexto}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Teléfono:</strong>
+        <p>${campoTelefono.value}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Escuela de procedencia:</strong>
+        <p>${escuelaTexto}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Nombre de la escuela:</strong>
+        <p>${campoNombreEscuela.value || "No aplica"}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Promedio:</strong>
+        <p>${campoPromedio.value}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Correo institucional:</strong>
+        <p>${campoCorreo.value}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="dato-confirmacion">
+        <strong>Contraseña:</strong>
+        <p>${campoContrasena.value}</p>
+      </div>
+    </div>
+  `;
+
+  confirmacion.classList.remove("d-none");
+  confirmacion.scrollIntoView({ behavior: "smooth" });
+}
+
+
+//fecha
+function formatearFecha(fecha) {
+  const partes = fecha.split("-");
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
