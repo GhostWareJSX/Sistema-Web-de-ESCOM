@@ -65,6 +65,8 @@ const escuelas = [
 // Sección 1 - Datos personales
 const campoBoleta = document.getElementById("boleta");
 const campoNombre = document.getElementById("nombre");
+const campoAPaterno = document.getElementById("aPaterno");
+const campoAMaterno = document.getElementById("aMaterno");
 const campoFecha = document.getElementById("fechaNac");
 const campoGenero = document.getElementById("genero");
 const campoCurp = document.getElementById("curp");
@@ -183,6 +185,8 @@ function validarFormulario() {
   return [
     validarCampo(campoBoleta, reglas.boleta),
     validarCampo(campoNombre, reglas.nombre),
+    validarCampo(campoAPaterno, reglas.nombre),
+    validarCampo(campoAMaterno, reglas.nombre),
     fechaValida,
     validarSelect(campoGenero),
     validarCampo(campoCurp, reglas.curp),
@@ -223,6 +227,12 @@ campoBoleta.addEventListener("blur", () =>
 );
 campoNombre.addEventListener("blur", () =>
   validarCampo(campoNombre, reglas.nombre),
+);
+campoAPaterno.addEventListener("blur", () =>
+  validarCampo(campoAPaterno, reglas.nombre),
+);
+campoAMaterno.addEventListener("blur", () =>
+  validarCampo(campoAMaterno, reglas.nombre),
 );
 campoCurp.addEventListener("blur", () => validarCampo(campoCurp, reglas.curp));
 campoTelefono.addEventListener("blur", () =>

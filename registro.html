@@ -122,10 +122,10 @@
                   </div>
                 </div>
 
-                <!-- Nombre completo -->
+                <!-- Nombre -->
                 <div class="col-12 col-md-6">
                   <label for="nombre" class="form-label"
-                    >Nombre completo <span class="text-danger">*</span></label
+                    >Nombre(s) <span class="text-danger">*</span></label
                   >
                   <input
                     type="text"
@@ -133,7 +133,45 @@
                     id="nombre"
                     name="nombre"
                     autocomplete="off"
-                    placeholder="Ej. Juan Pérez López"
+                    placeholder="Ej. Juan"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Solo se permiten letras y espacios.
+                  </div>
+                </div>
+
+                <!-- Apellido Paterno-->
+                <div class="col-12 col-md-6">
+                  <label for="aPterno" class="form-label"
+                    >Apellido Paterno <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="aPaterno"
+                    name="aPaterno"
+                    autocomplete="off"
+                    placeholder="Ej. Pérez"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Solo se permiten letras y espacios.
+                  </div>
+                </div>
+
+                <!-- Apellido Materno-->
+                <div class="col-12 col-md-6">
+                  <label for="aMaterno" class="form-label"
+                    >Apellido Materno <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="aMaterno"
+                    name="aMaterno"
+                    autocomplete="off"
+                    placeholder="Ej. López"
                     required
                   />
                   <div class="invalid-feedback">
